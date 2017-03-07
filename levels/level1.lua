@@ -1,9 +1,11 @@
 local composer = require( "composer" )
 local scene = composer.newScene()
-local physics = require "physics"
+local physics = require ("physics")
+local input = require ("input")
+
 
 --Check hitboxes and shit
-physics.setDrawMode("hybrid")
+--physics.setDrawMode("hybrid")
 
 --------------------------------------------
 
@@ -35,102 +37,10 @@ function scene:create( event )
 	physics.addBody(floor, "static", { friction = .5, bounce = .3} )
 
 	--adds xap to the game
-	local xap = display.newImageRect( "capnXap.png", 90, 90 )
+	xap = display.newImageRect( "capnXap.png", 250, 250 )
 	physics.addBody( xap, "dynamic", {friction = .5, bounce = 0})
-	xap.x = G.width / 2; xap.y = G.height - 100
-	
-	--Testing around with movement of Xap
-	--[[
-	--add left joystick
-	local left = display.newRect(0,0,160,160)
-	left.x = 50; left.y = 280;
-	
-	--add right joystick
-	local right = display.newRect(0,0,160,160)
-	right.x = G.width - 50; right.y = 280;
-	
-	--add jump joystick
-	local middle = display.newRect(0,0,160,160)
-	middle.x = G.width / 2; middle.y = 100;
+	xap.x = G.width / 2; xap.y = G.height - 180
 
-	
-	function left:touch()
-		G.motionx = -G.speed;
-	end
-	left:addEventListener("touch", left)
-	
-	function right:touch()
-		G.motionx = G.speed;
-	end
-	right:addEventListener("touch", right)
-	
-	function middle:touch()
-		G.motiony = -G.speed;
-	end
-	middle:addEventListener("touch", middle)
-	--]]
-	function onKeyEvent (event)
-		if event.keyName == "a" then
-			if event.phase == "down" then
-				transition.to(xap, {time = 3000, x = xap.x - (display.actualContentWidth / 2)})
-				print ("a key pressed")
-			elseif event.phase == "up" then
-				print ("a key released")
-				transition.cancel()
-			end
-		end
-		if event.keyName == "d" then
-			if event.phase == "down" then
-				transition.to(xap, {time = 3000, x = xap.x + (display.actualContentWidth / 2)})
-				print ("d key pressed")
-			elseif event.phase == "up" then
-				transition.cancel()
-				print ("d key pressed")
-			end
-		end
-		if event.keyName == "w" then
-			if event.phase == "down" then
-				transition.to(xap, {time = 3000, y = xap.y - (display.actualContentHeight / 2)})
-				print ("w key pressed")
-			elseif event.phase == "up" then
-				transition.cancel()
-				print ("w key pressed")
-			end
-		end
-		if event.keyName == "s" then
-			if event.phase == "down" then
-				transition.to(xap, {time = 3000, y = xap.y + (display.actualContentHeight / 2)})
-				print ("s key pressed")
-			elseif event.phase == "up" then
-				transition.cancel()
-				print ("s key pressed")
-			end
-		end
-	end
-	
-	
-	Runtime:addEventListener("key", onKeyEvent)
-	
-	
-	--move character
-	local function movePlayer (event)
-		xap.x = xap.x + G.motionx;
-		xap.y = xap.y + G.motiony;
-	end
-	Runtime:addEventListener("enterFrame", movePlayer)
-	
-	local function stop (event)
-  if event.phase =="ended" then
-   G.motionx = 0;
-   G.motiony = 0;
-  end
- end
- Runtime:addEventListener("touch", stop )
-	
-	
-
-	
-	
 	-- all display objects must be inserted into group
 	sceneGroup:insert( background )
 
@@ -182,6 +92,8 @@ function scene:destroy( event )
 	physics = nil
 end
 
+
+
 ---------------------------------------------------------------------------------
 
 -- Listener setup
@@ -189,6 +101,7 @@ scene:addEventListener( "create", scene )
 scene:addEventListener( "show", scene )
 scene:addEventListener( "hide", scene )
 scene:addEventListener( "destroy", scene )
+
 
 -----------------------------------------------------------------------------------------
 

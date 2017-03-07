@@ -6,6 +6,9 @@ local widget = require "widget"
 local playButton
 
 --After pressing play, level 1 initiates
+
+
+
 local function PlayButtonTouch()
 	composer.gotoScene( G.levelsPath.."level1", "fade", 500 )
 	return true
