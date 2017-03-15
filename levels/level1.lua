@@ -3,7 +3,7 @@ local scene = composer.newScene()
 local physics = require ("physics")
 local input = require ("input")
 local combat = require ("combat")
---alocal spawn = require ("spawn")
+
 
 
 --Check hitboxes and shit
