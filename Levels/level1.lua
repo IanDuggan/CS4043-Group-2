@@ -6,7 +6,7 @@ local combat = require ("combat")
 local es = require("enemySpawn")
 
 
-physics.setDrawMode("hybrid")
+--physics.setDrawMode("hybrid")
 
 function scene:create( event )
 
