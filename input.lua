@@ -4,11 +4,11 @@ local g = require "globals"
 
 local input = {}
 
+--This code is retarded and clunky af, will be fixed for beta
 function onKeyEvent (event)
 	--If user presses back on android/windowsPhone it won't exit the app
 	if ( event.keyName == "back" ) then
-		local platformName = system.getInfo( "platformName" )
-		if ( platformName == "Android" ) or ( platformName == "WinPhone" ) then
+		if ( G.android ) or ( G.winPhone ) then
 			return true
 		end
     end
@@ -31,7 +31,7 @@ function onKeyEvent (event)
 			transition.cancel()
 		end
 	end
-	if event.keyName == "w" then
+	if event.keyName == "space" then
 		if event.phase == "down" then
 			transition.to(xap, {time = 1500, y = xap.y - (display.actualContentHeight / 2)})
 		elseif event.phase == "up" then

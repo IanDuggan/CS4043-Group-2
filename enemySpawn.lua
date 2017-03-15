@@ -1,9 +1,60 @@
 local composer = require "composer"
 local physics = require("physics")
+physics.start()
+local enemySpawn = {}
 
-local spawn = {}
 
-local spawnTimer
+
+
+
+local function spawn(params) 
+local enemy = display.newImageRect(params.image, 360, 360)
+enemy.objTable = params.objTable
+enemy.index = #enemy.objTable + 1
+enemy.myName ="enemy" .. enemy.index
+enemy.myName = "enemy" --remove this when we sort out index's and shit
+enemy.x = 1500
+enemy.y = 870
+if params.hasBody then
+enemy.density = params.density or 0
+enemy.friction = params.friction or 0
+enemy.bounce = params.bounce or 0
+enemy.isSensor = params.isSensor or false
+enemy.bodyType = params.bodyType or "dynamic"
+
+physics.addBody(enemy, enemy.bodyType, {density = enemy.density, friction = enemy.friction, bounce = enemy.bounce, isSensor = enemy.isSensor})
+end
+enemy.group = params.group or nil 
+enemy.group:insert(enemy)
+enemy.objTable[enemy.index] = enemy
+return enemy
+end
+
+local localGroup = display.newGroup()
+
+local spawnTable = {}
+
+local spawns = spawn(
+{
+	image = G.enemies.."mummy.png",
+	objTable = spawnTable,
+	hasBody = true,
+	density = 1.0,
+	friction = 0.8,
+	--bounce = 0.4,
+	bodytype = "dynamic",
+	group = localGroup,
+}
+)
+
+
+
+
+
+
+
+
+--[[local spawnTimer
 local spawnedObject = {}
 
 local spawnParams =
@@ -77,5 +128,6 @@ if(action == "start") then
 	end
 end
 spawnController ("start", spawnParams)
-
-return spawn
+spawnController( "pause" )
+spawnController( "resume" )
+--spawnController( "stop" )--]]

@@ -1,7 +1,6 @@
 local composer = require "composer"
 local physics = require("physics")
 local enemySpawn = require("enemySpawn")
-physics.start()
 
 local combat = {}
 local lives =3
@@ -47,6 +46,13 @@ local function onCollision( event )
         local obj1 = event.object1
 		local obj2 = event.object2
 
+		
+		if((obj1.myName == "xap" and obj2.myName == "floor") or
+			(obj1.myName == "floor" and obj2.myName == "xap"))
+		then
+			
+		end
+			
 		if((obj1.myName == "xap" and obj2.myName == "trap") or
 			(obj1.myName == "trap" and obj2.myName == "xap"))
 		then
@@ -66,7 +72,7 @@ local function onCollision( event )
 		    --display.remove( obj1 )
             if ( lives > 0 ) then
 			   lives = lives - 1
-			   if(lives == 2) then
+			   if(lives == 0) then
 					display.remove( xap )
 					display.remove(newEnemy)
 					composer.gotoScene(G.levels.."menu")

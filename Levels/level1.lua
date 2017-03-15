@@ -3,8 +3,9 @@ local scene = composer.newScene()
 local physics = require ("physics")
 local input = require ("input")
 local combat = require ("combat")
+local es = require("enemySpawn")
 
---Check hitboxes and shit
+
 physics.setDrawMode("hybrid")
 
 function scene:create( event )
@@ -20,10 +21,11 @@ function scene:create( event )
 	
 	local floor = display.newRect(0, 0, G.width, 40 )
 	floor.x = G.width / 2; floor.y = G.height - 35
+	floor.myName = "floor"
 	physics.addBody(floor, "static", { friction = .5, bounce = .3} )
 
 	
-	xap = display.newImageRect( G.xap.."capnXap.png", 250, 250 )
+	xap = display.newImageRect( G.xap.."Xap.png", 250, 250 )
 	physics.addBody( xap, "dynamic", {friction = .5, bounce = 0})
 	xap.myName = "xap"
 	xap.x = G.width / 2
@@ -34,6 +36,9 @@ function scene:create( event )
 	trap.myName = "trap"
 	trap.x = G.width / 2 - 270; trap.y = G.height - 50
 
+
+	
+	
 	-- all display objects must be inserted into group
 	sceneGroup:insert( background )
 	sceneGroup:insert(trap)
