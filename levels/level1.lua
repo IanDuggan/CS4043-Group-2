@@ -2,10 +2,12 @@ local composer = require( "composer" )
 local scene = composer.newScene()
 local physics = require ("physics")
 local input = require ("input")
+local combat = require ("combat")
+--alocal spawn = require ("spawn")
 
 
 --Check hitboxes and shit
---physics.setDrawMode("hybrid")
+physics.setDrawMode("hybrid")
 
 --------------------------------------------
 
@@ -37,8 +39,10 @@ function scene:create( event )
 	physics.addBody(floor, "static", { friction = .5, bounce = .3} )
 
 	--adds xap to the game
+	
 	xap = display.newImageRect( "capnXap.png", 250, 250 )
 	physics.addBody( xap, "dynamic", {friction = .5, bounce = 0})
+	xap.myName="xap"
 	xap.x = G.width / 2; xap.y = G.height - 180
 
 	-- all display objects must be inserted into group
