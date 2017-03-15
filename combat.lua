@@ -19,7 +19,7 @@ local sheetOptions =
     },
 }
 
-local objectSheet = graphics.newImageSheet( "dagger.jpg", sheetOptions )
+local objectSheet = graphics.newImageSheet( G.misc.."dagger.jpg", sheetOptions )
 
 local mainGroup = display.newGroup()
 
@@ -39,25 +39,6 @@ local function daggerAttack()
 	} )
 end
 Runtime:addEventListener( "tap", daggerAttack )
-
-
---[[
-local function restoreXap()
-
-    xap.isBodyActive = false
-    xap.x = display.contentCenterX-5
-    xap.y = display.contentHeight-15
-
-    -- Fade in the xap
-    transition.to( xap, { alpha=1, time=4000,
-        onComplete = function()
-            xap.isBodyActive = true
-            died = false
-        end
-    } )
-end
---]]
-
 
 local function onCollision( event )
 
@@ -85,9 +66,10 @@ local function onCollision( event )
 		    --display.remove( obj1 )
             if ( lives > 0 ) then
 			   lives = lives - 1
-			   if(lives == 0) then
+			   if(lives == 2) then
 					display.remove( xap )
-					composer.gotoScene(G.levelsPath.."menu")
+					display.remove(newEnemy)
+					composer.gotoScene(G.levels.."menu")
 				else
 
 				end

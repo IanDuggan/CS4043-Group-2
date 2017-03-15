@@ -1,4 +1,5 @@
 local composer = require "composer"
+local g = require "globals"
 
 
 local input = {}
@@ -11,6 +12,10 @@ function onKeyEvent (event)
 			return true
 		end
     end
+	
+	if event.keyName == "escape" then
+		composer.gotoScene(G.levels.."menu")
+	end
 	
 	if event.keyName == "a" then
 		if event.phase == "down" then

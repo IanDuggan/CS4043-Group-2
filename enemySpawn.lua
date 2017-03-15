@@ -1,6 +1,5 @@
 local composer = require "composer"
 local physics = require("physics")
-physics.start()
 
 local spawn = {}
 
@@ -22,7 +21,7 @@ local spawnParams =
  local function spawnEnemy(bounds)
  
  --create an enemy & add physics to it
- local newEnemy = display.newImage("Cyclops.png" )
+ local newEnemy = display.newImage(G.enemies.."mummy.png" )
  physics.addBody(newEnemy,"dynamic",{density=1.0,friction=0.8, 1,1 })
  newEnemy:setLinearVelocity(100,0)
 newEnemy.myName = "enemy"
