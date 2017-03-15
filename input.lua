@@ -19,31 +19,30 @@ function onKeyEvent (event)
 	
 	if event.keyName == "a" then
 		if event.phase == "down" then
-			transition.to(xap, {time = 3000, x = xap.x - (display.actualContentWidth / 2)})
+			local playerLeft = transition.to(xap, {time = 3000, x = xap.x - (display.actualContentWidth / 2)})
 		elseif event.phase == "up" then
-			transition.cancel()
+			transition.cancel(playerLeft)
 		end
 	end
 	if event.keyName == "d" then
 		if event.phase == "down" then
-			transition.to(xap, {time = 3000, x = xap.x + 1000})
+			local playerRight = transition.to(xap, {time = 3000, x = xap.x + 1000})
 		elseif event.phase == "up" then
-			transition.cancel()
+			transition.cancel(playerRight)
 		end
 	end
-	if event.keyName == "space" then
+	if event.keyName == "space" or event.keyName == "w" then
 		if event.phase == "down" then
-			transition.to(xap, {time = 1500, y = xap.y - (display.actualContentHeight / 2)})
+			local playerJump = transition.to(xap, {time = 1500, y = xap.y - (display.actualContentHeight / 2)})
 		elseif event.phase == "up" then
-			transition.cancel(xap, {time = 5000})
+			transition.cancel(playerJump)
 		end
 	end
 	if event.keyName == "s" then
 		if event.phase == "down" then
-			transition.to(xap, {time = 0, xap:scale(.5,.5), y = xap.y + 50})
-
+			local duck = transition.to(xap, {time = 0, xap:scale(.5,.5), y = xap.y + 50})
 		elseif event.phase == "up" then
-			transition.cancel()
+			transition.cancel(duck)
 			xap:scale(2,2)
 		end
 	end

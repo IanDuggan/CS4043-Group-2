@@ -1,11 +1,11 @@
 local composer = require "composer"
 local physics = require("physics")
 local enemySpawn = require("enemySpawn")
-
 local combat = {}
 local lives =3
 local died = false
 local sheetOptions =
+
 {
     frames =
     {
@@ -17,7 +17,7 @@ local sheetOptions =
         },
     },
 }
-
+physics.start()
 local objectSheet = graphics.newImageSheet( G.misc.."dagger.jpg", sheetOptions )
 
 local mainGroup = display.newGroup()
@@ -33,7 +33,7 @@ local function daggerAttack()
 	newAttack.y = xap.y
 	newAttack:toBack()
 
-	transition.to( newAttack, { x=150000,y=50, time=500000,
+	local dagAttackTrans = transition.to( newAttack, { x=150000,y=50, time=500000,
 		onComplete = function() display.remove( newAttack ) end
 	} )
 end
@@ -47,6 +47,7 @@ local function onCollision( event )
 		local obj2 = event.object2
 
 		
+		
 		if((obj1.myName == "xap" and obj2.myName == "floor") or
 			(obj1.myName == "floor" and obj2.myName == "xap"))
 		then
@@ -56,7 +57,13 @@ local function onCollision( event )
 		if((obj1.myName == "xap" and obj2.myName == "trap") or
 			(obj1.myName == "trap" and obj2.myName == "xap"))
 		then
+
 			display.remove(trap)
+
+
+
+
+		
 		end
 
 		if ( ( obj1.myName == "dagger" and obj2.myName == "enemy" ) or
@@ -66,10 +73,15 @@ local function onCollision( event )
             display.remove( obj1 )
             display.remove( obj2 )
 
-		elseif ( ( obj1.myName == "xap" and obj2.myName == "enemy" ) or
-                 ( obj1.myName == "enemy" and obj2.myName == "xap" ) )
+		elseif ( ( obj1.myName == "xap" and (obj2.myName == "enemy" or obj2.myName == "arrow") ) or
+			( (obj1.myName == "enemy" or obj1.myName == "arrow") and obj2.myName == "xap" ) )
         then
+			print("hit")
 		    --display.remove( obj1 )
+			if obj1.myName == "arrow" or obj2.myName == "arrow" then
+				lives = 1
+			end
+			
             if ( lives > 0 ) then
 			   lives = lives - 1
 			   if(lives == 0) then

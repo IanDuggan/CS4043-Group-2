@@ -23,7 +23,7 @@ function scene:create( event )
 	floor.x = G.width / 2; floor.y = G.height - 35
 	floor.myName = "floor"
 	physics.addBody(floor, "static", { friction = .5, bounce = .3} )
-
+	floor.alpha = 0
 	
 	xap = display.newImageRect( G.xap.."Xap.png", 250, 250 )
 	physics.addBody( xap, "dynamic", {friction = .5, bounce = 0})
@@ -36,6 +36,12 @@ function scene:create( event )
 	trap.myName = "trap"
 	trap.x = G.width / 2 - 270; trap.y = G.height - 50
 
+		arrow =  display.newImageRect(G.misc.."arrow.png", 60,60)
+		arrow.x = G.width / 2 - 230
+		arrow.y = G.height - 1250
+		arrow.rotation = 270
+		physics.addBody( arrow, "dynamic", {friction = .5, bounce = 0})
+		arrow.myName = "arrow"
 
 	
 	
