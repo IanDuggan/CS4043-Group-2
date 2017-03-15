@@ -4,7 +4,8 @@ local enemySpawn = require("enemySpawn")
 physics.start()
 
 local combat = {}
-
+local lives =3
+local died = false
 local sheetOptions =
 {
     frames =
@@ -39,12 +40,14 @@ local function daggerAttack()
 end
 Runtime:addEventListener( "tap", daggerAttack )
 
+
+--[[
 local function restoreXap()
- 
+
     xap.isBodyActive = false
     xap.x = display.contentCenterX-5
     xap.y = display.contentHeight-15
- 
+
     -- Fade in the xap
     transition.to( xap, { alpha=1, time=4000,
         onComplete = function()
@@ -53,35 +56,41 @@ local function restoreXap()
         end
     } )
 end
+--]]
 
 
 local function onCollision( event )
- 
+
     if ( event.phase == "began" ) then
- 
+
         local obj1 = event.object1
 		local obj2 = event.object2
-       
+
+		if((obj1.myName == "xap" and obj2.myName == "trap") or
+			(obj1.myName == "trap" and obj2.myName == "xap"))
+		then
+			display.remove(trap)
+		end
+
 		if ( ( obj1.myName == "dagger" and obj2.myName == "enemy" ) or
              ( obj1.myName == "enemy" and obj2.myName == "dagger" ) )
         then
             -- Code to remove the enemy after his health is down
             display.remove( obj1 )
             display.remove( obj2 )
-			
+
 		elseif ( ( obj1.myName == "xap" and obj2.myName == "enemy" ) or
                  ( obj1.myName == "enemy" and obj2.myName == "xap" ) )
         then
 		    --display.remove( obj1 )
-            if ( died == false ) then
-               died = true--code shoukld be here to check if the heart are gone or not
+            if ( lives > 0 ) then
 			   lives = lives - 1
 			   if(lives == 0) then
 					display.remove( xap )
+					composer.gotoScene(G.levelsPath.."menu")
 				else
-				     xap.alpha = 0
-					 timer.performWithDelay(1000,restoreXap )
-					 end
+
+				end
             end
         end
     end
