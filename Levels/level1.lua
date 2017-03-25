@@ -6,6 +6,7 @@ local enemy = require("enemySpawn")
 local g = require("globals")
 local input = require("input")
 local combat = require("combat")
+local col = require("collision")
 
 local scene = composer.newScene()
 
@@ -21,10 +22,14 @@ function scene:create( event )
 	background.anchorX = 0
 	background.anchorY = 0
 
+	function scrollCity(self, event)
+		self.x = self.x - 3
+	end
 	
-	local floor = display.newRect(0, 0, G.width, 40 )
+	
+	
+	local floor = display.newRect(0, 0, G.width, 1 )
 	floor.x = G.width / 2; floor.y = G.height - 35
-	floor.myName = "floor"
 	physics.addBody(floor, "static", { friction = .5, bounce = .3} )
 	floor.alpha = 0
 	
@@ -56,7 +61,7 @@ function scene:create( event )
 		xap.spawn(
 		{
 			x = G.width / 2,
-			y = G.height -300,
+			y = G.height -100,
 		}	)
 		
 		enemy.spawn(
@@ -72,11 +77,10 @@ function scene:create( event )
 		}	)
 	
 
-	Runtime:addEventListener("key", input.onKeyEvent)
+
 	
 	
-	--]]
-	
+
 	
 	
 	
@@ -127,5 +131,6 @@ scene:addEventListener( "create", scene )
 scene:addEventListener( "show", scene )
 scene:addEventListener( "hide", scene )
 scene:addEventListener( "destroy", scene )
+Runtime:addEventListener("key", input.onKeyEvent)
 
 return scene

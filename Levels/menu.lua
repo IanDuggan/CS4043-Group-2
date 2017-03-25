@@ -8,6 +8,10 @@ local function PlayButtonTouch()
 	return true
 end
 
+local function SettingsTouch()
+	composer.hideOverlay()
+	return true
+end
 
 function scene:create( event )
 	local sceneGroup = self.view
@@ -33,15 +37,30 @@ function scene:create( event )
 			over = G.misc.."button-over.png",
 			fontSize = 90,
 			width = 154, height=40,
-			onRelease = PlayButtonTouch	-- event listener function
+			onRelease = PlayButtonTouch
 		}
 		playButton.x = display.contentCenterX
 		playButton.y = display.contentHeight - 600
+		
+	local settings = widget.newButton
+	{
+		label = "Settings",
+		labelColor = { default = {255}, over = {128} },
+		default = G.misc.."button.png",
+		over = G.misc.."button-over.png",
+		fontSize = 90,
+		width = 154, height=40,
+		onRelease = SettingsTouch
+	}
+	
+		settings.x = display.contentCenterX
+		settings.y = display.contentHeight - 450
 	
 	
 	sceneGroup:insert( background )
 	sceneGroup:insert( titleLogo )
 	sceneGroup:insert( playButton )
+	sceneGroup:insert( settings )
 end
 
 function scene:show( event )

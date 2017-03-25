@@ -1,14 +1,17 @@
+require("globals")
+
 local xap = {}
+
 
 local function spawn(params)
 
 	xap.display = display.newImageRect( G.xap.."Xap.png", 240, 419 )
 	xap.myName = "xap"
-	xap.canJump = true
-	xap.velocity = 0.5
+	xap.motionX = params.motionx or 0 
+	xap.speed = G.xapSpeed
 	xap.isAlive = true
-	xap.canJump = true
-	xap.health = 100
+	xap.canJump = params.canJump or true 
+	xap.health =  params.health or 100
 
 	
 	xap.display.x = params.x or 0
