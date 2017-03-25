@@ -21,11 +21,6 @@ function scene:create( event )
 	local background = display.newImageRect( G.backgrounds.."level1.jpg",  display.actualContentWidth, display.actualContentHeight )
 	background.anchorX = 0
 	background.anchorY = 0
-
-	function scrollCity(self, event)
-		self.x = self.x - 3
-	end
-	
 	
 	
 	local floor = display.newRect(0, 0, G.width, 1 )
