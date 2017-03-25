@@ -14,6 +14,9 @@ G.sounds = "Assets/Sounds/"
 --random--
 G.width = display.actualContentWidth
 G.height = display.actualContentHeight
+G.drawMode = "hybrid"
+--G.drawMode = "normal"
+
 
 --platform names
 G.android = (system.getInfo("platformName") == "Android")

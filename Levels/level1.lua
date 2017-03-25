@@ -1,12 +1,15 @@
 local composer = require( "composer" )
-local scene = composer.newScene()
 local physics = require ("physics")
-local input = require ("input")
-local combat = require ("combat")
-local es = require("enemySpawn")
+local xap = require("xap")
+local trap = require("traps")
+local enemy = require("enemySpawn")
+local g = require("globals")
+local input = require("input")
+local combat = require("combat")
 
+local scene = composer.newScene()
 
---physics.setDrawMode("hybrid")
+physics.setDrawMode(G.drawMode)
 
 function scene:create( event )
 
@@ -25,31 +28,63 @@ function scene:create( event )
 	physics.addBody(floor, "static", { friction = .5, bounce = .3} )
 	floor.alpha = 0
 	
-	xap = display.newImageRect( G.xap.."Xap.png", 250, 250 )
-	physics.addBody( xap, "dynamic", {friction = .5, bounce = 0})
-	xap.myName = "xap"
-	xap.x = G.width / 2
-	xap.y = G.height - 180
 
-	trap = display.newImageRect(G.traps.."trap.png", 100,100)
-	physics.addBody(trap, "static", {friction = .5, bounce = 0})
-	trap.myName = "trap"
-	trap.x = G.width / 2 - 270; trap.y = G.height - 50
 
-		arrow =  display.newImageRect(G.misc.."arrow.png", 60,60)
-		arrow.x = G.width / 2 - 230
-		arrow.y = G.height - 1250
-		arrow.rotation = 270
-		physics.addBody( arrow, "dynamic", {friction = .5, bounce = 0})
-		arrow.myName = "arrow"
+		trap.spawn(
+		{
+			myName = "trap",
+			image = G.traps.."trap.png",
+			x = G.width/2 - 270,
+			y = G.height - 50,			
+			bodyType = "static",
+			friction = .5,
+			bounce = 0,
+		}	)
+		
+		trap.spawn(
+		{
+			myName = "arrow",
+			image = G.misc.."arrow.png",
+			x = G.width / 2 - 230,
+			y = G.height - 1250,
+			bodyType = "dynamic",
+			friction = .5,
+			bounce = 0,
+			rotation = 270,
+		}	)
 
+		xap.spawn(
+		{
+			x = G.width / 2,
+			y = G.height -300,
+		}	)
+		
+		enemy.spawn(
+		{
+			type = "mummy",
+			index = 1,
+			x = 1500,
+			y = 870,
+			density = 1.0,
+			friction = 0.8,
+			bounce = 0.4,
+			bodytype = "dynamic",
+		}	)
+	
+
+	Runtime:addEventListener("key", input.onKeyEvent)
+	
+	
+	--]]
+	
+	
 	
 	
 	-- all display objects must be inserted into group
 	sceneGroup:insert( background )
-	sceneGroup:insert(trap)
 	sceneGroup:insert(floor)
-	sceneGroup:insert( xap )
+
+
 end
 
 
@@ -73,6 +108,7 @@ function scene:hide( event )
 	end
 end
 
+
 function scene:destroy( event )
 
 	local sceneGroup = self.view
@@ -80,7 +116,7 @@ function scene:destroy( event )
 	display.remove(background)
 	display.remove(floor)
 	display.remove(newEnemy)
-	display.remove(trap)
+
 	
 	package.loaded[physics] = nil
 	physics = nil

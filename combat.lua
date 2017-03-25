@@ -1,36 +1,38 @@
 local composer = require "composer"
 local physics = require("physics")
 local enemySpawn = require("enemySpawn")
-local combat = {}
-local lives =3
-local died = false
-local sheetOptions =
+local xap = require("xap")
+local trap = ("traps")
 
+local combat = {}
+local died = false
+
+local sheetOptions =
 {
     frames =
     {
         {   -- 2) dagger
             x = 98,
             y = 265,
-            width = 40,
-            height = 14
+            width = 160,
+            height = 170
         },
     },
 }
 physics.start()
-local objectSheet = graphics.newImageSheet( G.misc.."dagger.jpg", sheetOptions )
+local objectSheet = graphics.newImageSheet( G.misc.."dagger.png", sheetOptions )
 
 local mainGroup = display.newGroup()
 
 local function daggerAttack()
 
-	local newAttack = display.newImageRect(mainGroup, objectSheet, 1, 40, 14)
+	local newAttack = display.newImageRect(mainGroup, objectSheet, 1, 150, 54)
 	physics.addBody( newAttack, "dynamic", { isSensor=true } )
 	newAttack.isBullet = true
 	newAttack.myName = "dagger"
 
-	newAttack.x = xap.x
-	newAttack.y = xap.y
+	newAttack.x = xap.display.x
+	newAttack.y = xap.display.y
 	newAttack:toBack()
 
 	local dagAttackTrans = transition.to( newAttack, { x=150000,y=50, time=500000,
@@ -42,7 +44,7 @@ Runtime:addEventListener( "tap", daggerAttack )
 local function onCollision( event )
 
     if ( event.phase == "began" ) then
-
+		print(xap.myName)
         local obj1 = event.object1
 		local obj2 = event.object2
 
@@ -58,12 +60,8 @@ local function onCollision( event )
 			(obj1.myName == "trap" and obj2.myName == "xap"))
 		then
 
-			display.remove(trap)
+			display.remove(trap.display)
 
-
-
-
-		
 		end
 
 		if ( ( obj1.myName == "dagger" and obj2.myName == "enemy" ) or
@@ -81,11 +79,11 @@ local function onCollision( event )
 			if obj1.myName == "arrow" or obj2.myName == "arrow" then
 				lives = 1
 			end
-			
-            if ( lives > 0 ) then
-			   lives = lives - 1
-			   if(lives == 0) then
-					display.remove( xap )
+	
+            if ( xap.health > 0 ) then
+			   xap.health = xap.health - 40
+			   if(xap.health <= 0) then
+					display.remove( xap.display )
 					display.remove(newEnemy)
 					composer.gotoScene(G.levels.."menu")
 				else
