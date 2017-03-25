@@ -1,6 +1,6 @@
 local composer = require "composer"
 local physics = require("physics")
-local enemySpawn = require("enemySpawn")
+local enemy = require("enemy")
 local xap = require("xap")
 local trap = ("traps")
 local combat = require("combat")

@@ -18,15 +18,16 @@ function scene:create( event )
 
 
 	local background = display.newImageRect( G.backgrounds.."menu.jpg", display.actualContentWidth, display.actualContentHeight )
-		background.anchorX = 0
-		background.anchorY = 0
-		background.x = 0 + display.screenOriginX 
-		background.y = 0 + display.screenOriginY
+	background.anchorX = 0
+	background.anchorY = 0
+	background.x = 0 + display.screenOriginX 
+	background.y = 0 + display.screenOriginY
 	
-	
+
+
 	local titleLogo = display.newImageRect( G.misc.."logo.png", 1200, 800)
-		titleLogo.x = display.contentCenterX
-		titleLogo.y = 400
+	titleLogo.x = display.contentCenterX
+	titleLogo.y = 400
 	
 	-- create a widget button (which will loads level1.lua on release)
 	local playButton = widget.newButton

@@ -2,11 +2,12 @@ local composer = require( "composer" )
 local physics = require ("physics")
 local xap = require("xap")
 local trap = require("traps")
-local enemy = require("enemySpawn")
+local enemy = require("enemy")
 local g = require("globals")
 local input = require("input")
 local combat = require("combat")
 local col = require("collision")
+
 
 local scene = composer.newScene()
 
@@ -21,7 +22,16 @@ function scene:create( event )
 	local background = display.newImageRect( G.backgrounds.."level1.jpg",  display.actualContentWidth, display.actualContentHeight )
 	background.anchorX = 0
 	background.anchorY = 0
+
+
+	function scrollBackground(self, event)
+		self.x = self.x - 3
+	end
+
+	background.enterFrame = scrollBackground
+	Runtime:addEventListener("enterFrame", background)
 	
+
 	
 	local floor = display.newRect(0, 0, G.width, 1 )
 	floor.x = G.width / 2; floor.y = G.height - 35
@@ -29,7 +39,7 @@ function scene:create( event )
 	floor.alpha = 0
 	
 
-
+--[[
 		trap.spawn(
 		{
 			myName = "trap",
@@ -52,13 +62,15 @@ function scene:create( event )
 			bounce = 0,
 			rotation = 270,
 		}	)
-
+--]]
 		xap.spawn(
 		{
 			x = G.width / 2,
 			y = G.height -100,
 		}	)
 		
+		
+	
 		enemy.spawn(
 		{
 			type = "mummy",
@@ -126,6 +138,6 @@ scene:addEventListener( "create", scene )
 scene:addEventListener( "show", scene )
 scene:addEventListener( "hide", scene )
 scene:addEventListener( "destroy", scene )
-Runtime:addEventListener("key", input.onKeyEvent)
+
 
 return scene
