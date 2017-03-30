@@ -4,7 +4,7 @@ local xap = require("xap")
 local trap = require("traps")
 local enemy = require("enemy")
 local g = require("globals")
-local input = require("input")
+--local input = require("input")
 local combat = require("combat")
 local col = require("collision")
 
@@ -24,22 +24,23 @@ function scene:create( event )
 	background.anchorY = 0
 
 
-	function scrollBackground(self, event)
-		self.x = self.x - 3
-	end
+--	function scrollBackground(self, event)
+--		self.x = self.x - 3
+--	end
 
-	background.enterFrame = scrollBackground
-	Runtime:addEventListener("enterFrame", background)
+--	background.enterFrame = scrollBackground
+--	Runtime:addEventListener("enterFrame", background)
 	
 
 	
 	local floor = display.newRect(0, 0, G.width, 1 )
 	floor.x = G.width / 2; floor.y = G.height - 35
 	physics.addBody(floor, "static", { friction = .5, bounce = .3} )
-	floor.alpha = 0
+	floor.alpha = 0; floor.myName = "floor"
 	
 
---[[
+	
+
 		trap.spawn(
 		{
 			myName = "trap",
@@ -49,6 +50,7 @@ function scene:create( event )
 			bodyType = "static",
 			friction = .5,
 			bounce = 0,
+			i = 1,
 		}	)
 		
 		trap.spawn(
@@ -61,14 +63,15 @@ function scene:create( event )
 			friction = .5,
 			bounce = 0,
 			rotation = 270,
+			i = 2,
 		}	)
---]]
+
 		xap.spawn(
 		{
 			x = G.width / 2,
-			y = G.height -100,
+			y = G.height -250,
+			myName = "xap"
 		}	)
-		
 		
 	
 		enemy.spawn(
@@ -81,19 +84,15 @@ function scene:create( event )
 			friction = 0.8,
 			bounce = 0.4,
 			bodytype = "dynamic",
+			myName = "enemy"
 		}	)
-	
 
-
-	
-	
-
-	
-	
-	
 	-- all display objects must be inserted into group
 	sceneGroup:insert( background )
 	sceneGroup:insert(floor)
+	sceneGroup:insert(xap.display)
+	sceneGroup:insert(trap.display)
+	sceneGroup:insert(enemy.display)
 
 
 end
@@ -124,11 +123,7 @@ function scene:destroy( event )
 
 	local sceneGroup = self.view
 
-	display.remove(background)
-	display.remove(floor)
-	display.remove(newEnemy)
-
-	
+	display.remove(xap.healthbar)
 	package.loaded[physics] = nil
 	physics = nil
 end

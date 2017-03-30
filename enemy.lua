@@ -18,18 +18,18 @@ local function spawn(params)
 
 	--add more if statements depending on the type of creature when we get there :)
 
-	local E = display.newImageRect(E.image, E.imageX, E.imageY)
+	E.display = display.newImageRect(E.image, E.imageX, E.imageY)
 
 	E.index = params.index
-	E.myName ="enemy"
-	E.x = params.x
-	E.y = params.y
+	E.display.myName = params.myName or "enemy"
+	E.display.x = params.x
+	E.display.y = params.y
 	E.density = params.density or 0
 	E.friction = params.friction or 0
 	E.bounce = params.bounce or 0
 	E.bodyType = params.bodyType or "dynamic"
 
-	physics.addBody(E, E.bodyType, {density = E.density, friction = E.friction, bounce = E.bounce, isSensor = E.isSensor})
+	physics.addBody(E.display, E.bodyType, {density = E.density, friction = E.friction, bounce = E.bounce, isSensor = E.isSensor})
 --[[
 	local function ai()
 		if 	(maths.calculateDistance( {x1 = xap.display.x, x2 = E.x, y1 = xap.display.y, y2 = E.y }) <= 10) then 

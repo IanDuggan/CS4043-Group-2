@@ -12,13 +12,18 @@ local function onCollision( event )
     if ( event.phase == "began" ) then
         local obj1 = event.object1
 		local obj2 = event.object2
+		print(xap.health)
+		
+		
 
+		if xap.health > 0 then
+			display.remove(xap.healthbar)
+			xap.healthbar = display.newText({text = "Health : "..xap.health, x = 300, y = 100})
+		end
 		
 		if((obj1.myName == "xap" and obj2.myName == "floor") or
 			(obj1.myName == "floor" and obj2.myName == "xap"))
 		then
-		print(obj1.myName)
-		print(obj2.myName)
 			xap.canJump = true
 		end
 			
@@ -40,24 +45,23 @@ local function onCollision( event )
 		elseif ( ( obj1.myName == "xap" and (obj2.myName == "enemy" or obj2.myName == "arrow") ) or
 			( (obj1.myName == "enemy" or obj1.myName == "arrow") and obj2.myName == "xap" ) )
         then
-			print("hit")
+
 			if obj1.myName == "arrow" or obj2.myName == "arrow" then
-				lives = 1
+				xap.health = xap.health - 50
+			else
+				xap.health = xap.health - 70
 			end
-	
-            if ( xap.health > 0 ) then
-			   xap.health = xap.health - 40
+			
 			   if(xap.health <= 0) then
-					display.remove( xap.display )
-					display.remove(newEnemy)
-					composer.gotoScene(G.levels.."menu")
-				else
+					display.remove(xap.healthbar)
+					composer.gotoScene(G.levels.."dead")
 
 				end
             end
         end
     end
-end
+
+
 
 Runtime:addEventListener( "collision", onCollision )
 return collision
