@@ -18,6 +18,15 @@ local function spawn(params)
 	physics.addBody( t.display, t.bodyType, {friction = t.friction, bounce = t.bounce})
 end
 
+local function scrollObjects(self, event)
+	if self.display.x ~= nil then
+		self.display.x = self.display.x + G.currentXapXSpeed
+	end
+end
+
 t.spawn = spawn
+
+t.enterFrame = scrollObjects
+Runtime:addEventListener("enterFrame", t)
 
 return t

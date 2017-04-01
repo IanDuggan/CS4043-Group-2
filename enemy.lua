@@ -17,6 +17,7 @@ local function spawn(params)
 	end
 
 	--add more if statements depending on the type of creature when we get there :)
+	
 
 	E.display = display.newImageRect(E.image, E.imageX, E.imageY)
 
@@ -39,10 +40,17 @@ local function spawn(params)
 --]]
 end
 
-
+local function scrollObjects(self, event)
+	if self.display.x ~= nil then
+		self.display.x = self.display.x + G.currentXapXSpeed
+	end
+end
 
 
 E.spawn = spawn
+
+E.enterFrame = scrollObjects
+Runtime:addEventListener("enterFrame", E)
 
 return E
 

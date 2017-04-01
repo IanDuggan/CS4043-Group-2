@@ -74,7 +74,7 @@ end
 
 local function move(event)
 	if xap.display.x ~= nil  then
-	xap.display.x = xap.display.x + distance
+	xap.display.x = xap.display.x 
 	end
 end
 
