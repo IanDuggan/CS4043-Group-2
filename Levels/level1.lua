@@ -19,17 +19,55 @@ function scene:create( event )
 	physics.start()
 	physics.pause()
 
-	local background = display.newImageRect( G.backgrounds.."level1.jpg",  display.actualContentWidth, display.actualContentHeight )
-	background.anchorX = 0
-	background.anchorY = 0
+	local background1 = display.newImageRect( G.backgrounds.."level1.jpg",  display.actualContentWidth, display.actualContentHeight )
+	background1.x = background1.x - 2880
+	background1.anchorX = 0
+	background1.anchorY = 0
+	
+	local background2 = display.newImageRect( G.backgrounds.."level1.jpg",  display.actualContentWidth, display.actualContentHeight )
+	background2.x = background2.x - 1920
+	background2.anchorX = 0
+	background2.anchorY = 0
+	
+	local background3 = display.newImageRect( G.backgrounds.."level1.jpg",  display.actualContentWidth, display.actualContentHeight )
+	background3.anchorX = 0
+	background3.anchorY = 0
+	
+	local background4 = display.newImageRect( G.backgrounds.."level1.jpg",  display.actualContentWidth, display.actualContentHeight )
+	background4.x = background4.x + 1920
+	background4.anchorX = 0
+	background4.anchorY = 0
+	
+	local background5 = display.newImageRect( G.backgrounds.."level1.jpg",  display.actualContentWidth, display.actualContentHeight )
+	background5.x = background5.x + 2880
+	background5.anchorX = 0
+	background5.anchorY = 0
 
 
---	function scrollBackground(self, event)
---		self.x = self.x - 3
---	end
+	function scrollBackground(self, event)
+		self.x = self.x + G.currentXapXSpeed
+		if self.x > 3840 then
+			self:translate( -7680, 0 )
+		end
+		if self.x < -3840 then
+			self:translate( 7680, 0 )
+		end
+	end
 
---	background.enterFrame = scrollBackground
---	Runtime:addEventListener("enterFrame", background)
+	background1.enterFrame = scrollBackground
+	Runtime:addEventListener("enterFrame", background1)
+	
+	background2.enterFrame = scrollBackground
+	Runtime:addEventListener("enterFrame", background2)
+	
+	background3.enterFrame = scrollBackground
+	Runtime:addEventListener("enterFrame", background3)
+	
+	background4.enterFrame = scrollBackground
+	Runtime:addEventListener("enterFrame", background4)
+	
+	background5.enterFrame = scrollBackground
+	Runtime:addEventListener("enterFrame", background5)
 	
 
 	
@@ -88,7 +126,11 @@ function scene:create( event )
 		}	)
 
 	-- all display objects must be inserted into group
-	sceneGroup:insert( background )
+	sceneGroup:insert( background1 )
+	sceneGroup:insert( background2 )
+	sceneGroup:insert( background3 )
+	sceneGroup:insert( background4 )
+	sceneGroup:insert( background5 )
 	sceneGroup:insert(floor)
 	sceneGroup:insert(xap.display)
 	sceneGroup:insert(trap.display)
