@@ -18,6 +18,8 @@ G.height = display.actualContentHeight
 G.drawMode = "normal"
 
 G.xapSpeed = 10
+G.currentXapXSpeed = 0
+G.currentXapYSpeed = 0
 
 --platform names
 G.android = (system.getInfo("platformName") == "Android")

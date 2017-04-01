@@ -43,16 +43,19 @@ function onKeyEvent (event)
 	
 	if event.keyName == "a" and event.phase == "down" then
 		distance = -G.xapSpeed
-
+		G.currentXapXSpeed = G.xapSpeed
 
 	elseif event.keyName == "a" and event.phase == "up" then
 		distance = 0
+		G.currentXapXSpeed = 0
 	end
 
 	if event.keyName == "d" and event.phase == "down" then
 			distance = G.xapSpeed
+			G.currentXapXSpeed = -G.xapSpeed
 	elseif event.keyName == "d" and event.phase == "up" then
 			distance = 0
+			G.currentXapXSpeed = 0
 	end
 
 	if event.keyName == "space" or event.keyName == "w" then
