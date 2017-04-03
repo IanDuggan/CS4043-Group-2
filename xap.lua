@@ -89,7 +89,6 @@ function onKeyEvent (event)
 end
 
 
---Movement
 local function move(event)
 	if xap.display.x ~= nil  then
 	xap.display.x = xap.display.x 
@@ -165,11 +164,9 @@ end
 
 xap.spawn = spawn
 xap.move = move
+xap.onKeyEvent = onKeyEvent
+xap.saberAttack = saberAttack
+xap.daggerAttack = daggerAttack
 
-
-Runtime:addEventListener("enterFrame", move)
-Runtime:addEventListener("key", onKeyEvent)
-Runtime:addEventListener("mouse", saberAttack )
-Runtime:addEventListener( "tap", daggerAttack )
 
 return xap
