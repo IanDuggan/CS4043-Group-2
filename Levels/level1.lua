@@ -191,7 +191,19 @@ function scene:destroy( event )
 
 	display.remove(xap.healthbar)
 	package.loaded[physics] = nil
+	package.loaded[xap] = nil
+	package.loaded[trap] = nil
+	package.loaded[enemy] = nil
+	package.loaded[col] = nil
+
+	Runtime:removeEventListener("enterFrame", xap.move)
+	Runtime:removeEventListener("key", xap.onKeyEvent)
+	Runtime:removeEventListener("mouse", xap.saberAttack )
+	Runtime:removeEventListener( "tap", xap.daggerAttack )
+
 	physics = nil
+
+	
 end
 
 -- Listener setup
@@ -199,6 +211,12 @@ scene:addEventListener( "create", scene )
 scene:addEventListener( "show", scene )
 scene:addEventListener( "hide", scene )
 scene:addEventListener( "destroy", scene )
+
+Runtime:addEventListener("enterFrame", xap.move)
+Runtime:addEventListener("key", xap.onKeyEvent)
+Runtime:addEventListener("mouse", xap.saberAttack )
+Runtime:addEventListener( "tap", xap.daggerAttack )
+
 
 
 return scene
