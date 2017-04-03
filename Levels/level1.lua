@@ -77,7 +77,8 @@ function scene:create( event )
 	floor.alpha = 0; floor.myName = "floor"
 	
 
-	
+	local trapGroup = display.newGroup()
+	local enemyGroup = display.newGroup()
 
 		trap.spawn(
 		{
@@ -90,6 +91,8 @@ function scene:create( event )
 			bounce = 0,
 			i = 1,
 		}	)
+		
+		trapGroup:insert(trap.display)
 		
 		trap.spawn(
 		{
@@ -104,6 +107,8 @@ function scene:create( event )
 			i = 2,
 		}	)
 
+		trapGroup:insert(trap.display)
+		
 		xap.spawn(
 		{
 			x = G.width / 2,
@@ -124,6 +129,24 @@ function scene:create( event )
 			bodytype = "dynamic",
 			myName = "enemy"
 		}	)
+		
+		enemyGroup:insert(enemy.display)
+		
+				enemy.spawn(
+		{
+			type = "mummy",
+			index = 2,
+			x = 1400,
+			y = 870,
+			density = 1.0,
+			friction = 0.8,
+			bounce = 0.4,
+			bodytype = "dynamic",
+			myName = "enemy"
+		}	)
+		
+		enemyGroup:insert(enemy.display)
+		
 
 	-- all display objects must be inserted into group
 	sceneGroup:insert( background1 )
@@ -133,8 +156,8 @@ function scene:create( event )
 	sceneGroup:insert( background5 )
 	sceneGroup:insert(floor)
 	sceneGroup:insert(xap.display)
-	sceneGroup:insert(trap.display)
-	sceneGroup:insert(enemy.display)
+	sceneGroup:insert(trapGroup)
+	sceneGroup:insert(enemyGroup)
 
 
 end
