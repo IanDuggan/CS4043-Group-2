@@ -4,8 +4,6 @@ local xap = require("xap")
 local trap = require("traps")
 local enemy = require("enemy")
 local g = require("globals")
---local input = require("input")
-local combat = require("combat")
 local col = require("collision")
 
 
@@ -71,7 +69,7 @@ function scene:create( event )
 	
 
 	
-	local floor = display.newRect(0, 0, G.width, 1 )
+	local floor = display.newRect(0, 0, G.width * 100, 1 )
 	floor.x = G.width / 2; floor.y = G.height - 35
 	physics.addBody(floor, "static", { friction = .5, bounce = .3} )
 	floor.alpha = 0; floor.myName = "floor"
@@ -79,7 +77,7 @@ function scene:create( event )
 
 	local trapGroup = display.newGroup()
 	local enemyGroup = display.newGroup()
-
+		--[[
 		trap.spawn(
 		{
 			myName = "trap",
@@ -94,6 +92,7 @@ function scene:create( event )
 		
 		trapGroup:insert(trap.display)
 		
+
 		trap.spawn(
 		{
 			myName = "arrow",
@@ -109,6 +108,8 @@ function scene:create( event )
 
 		trapGroup:insert(trap.display)
 		
+		--]]
+		
 		xap.spawn(
 		{
 			x = G.width / 2,
@@ -116,7 +117,7 @@ function scene:create( event )
 			myName = "xap"
 		}	)
 		
-	
+	--[[
 		enemy.spawn(
 		{
 			type = "mummy",
@@ -131,7 +132,7 @@ function scene:create( event )
 		}	)
 		
 		enemyGroup:insert(enemy.display)
-		
+		--]]
 				enemy.spawn(
 		{
 			type = "mummy",
@@ -178,7 +179,7 @@ function scene:hide( event )
 	local sceneGroup = self.view
 	local phase = event.phase
 
-	if event.phase == "will" then -- when scene is about to go off screen
+	if phase == "will" then -- when scene is about to go off screen
 	elseif phase == "did" then	--when the scene leaves the screen
 	end
 end

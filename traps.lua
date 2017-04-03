@@ -13,15 +13,16 @@ local function spawn(params)
 	t.bounce = params.bounce or 0
 	t.bodyType = bodyType
 	t.i = params.i
-	t.group[t.i] = t.display 
 	
 	physics.addBody( t.display, t.bodyType, {friction = t.friction, bounce = t.bounce})
 end
 
 local function scrollObjects(self, event)
+if self.display ~= nil then
 	if self.display.x ~= nil then
 		self.display.x = self.display.x + G.currentXapXSpeed
 	end
+end
 end
 
 t.spawn = spawn

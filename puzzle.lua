@@ -1,12 +1,7 @@
 local composer = require( "composer" )
 local physics = require ("physics")
 local xap = require("xap")
-local trap = require("traps")
-local enemy = require("enemy")
 local g = require("globals")
---local input = require("input")
-local combat = require("combat")
-local col = require("collision")
 
 --io.output():setvbuf("no") 
 --display.setStatusBar(display.HiddenStatusBar)  
@@ -331,11 +326,3 @@ movePiecesToTray()
 	
 
 return puzzle
-	
-	
-	
-	
-	
-	
-	
-	

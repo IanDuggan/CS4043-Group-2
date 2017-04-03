@@ -3,7 +3,6 @@ local physics = require("physics")
 local enemy = require("enemy")
 local xap = require("xap")
 local trap = ("traps")
-local combat = require("combat")
 
 local collision = {}
 
