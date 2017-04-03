@@ -117,12 +117,12 @@ function scene:create( event )
 			myName = "xap"
 		}	)
 		
-	--[[
+	
 		enemy.spawn(
 		{
 			type = "mummy",
 			index = 1,
-			x = 1500,
+			x = 700,
 			y = 870,
 			density = 1.0,
 			friction = 0.8,
@@ -132,8 +132,8 @@ function scene:create( event )
 		}	)
 		
 		enemyGroup:insert(enemy.display)
-		--]]
-				enemy.spawn(
+		
+		enemy.spawn(
 		{
 			type = "mummy",
 			index = 2,
@@ -148,7 +148,7 @@ function scene:create( event )
 		
 		enemyGroup:insert(enemy.display)
 		
-
+		
 	-- all display objects must be inserted into group
 	sceneGroup:insert( background1 )
 	sceneGroup:insert( background2 )
@@ -156,7 +156,7 @@ function scene:create( event )
 	sceneGroup:insert( background4 )
 	sceneGroup:insert( background5 )
 	sceneGroup:insert(floor)
-	sceneGroup:insert(xap.display)
+	sceneGroup:insert(xapGroup)
 	sceneGroup:insert(trapGroup)
 	sceneGroup:insert(enemyGroup)
 

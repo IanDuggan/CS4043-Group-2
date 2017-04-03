@@ -39,25 +39,19 @@ local function spawn(params)
 	end
 --]]
 
-	local function scrollObjects(self, event)
+	function scrollObjects(self, event)
 		if self.display.x ~= nil then
 			self.display.x = self.display.x + G.currentXapXSpeed
 		end
 	end
 
 
-	E.enterFrame = scrollObjects
-	Runtime:addEventListener("enterFrame", E)
-
+	
 end
 
-
-
-
-E.spawn = spawn
-
-
-
+	E.enterFrame = scrollObjects
+	Runtime:addEventListener("enterFrame", E)
+	E.spawn = spawn
 return E
 
 

@@ -7,6 +7,7 @@ local direction = 1
 
 local function spawn(params)
 
+	xapGroup = display.newGroup()
 	xap.display = display.newImageRect( G.xap.."Xap.png", 240, 419 )
 	xap.display.myName = "xap"
 	xap.motionX = params.motionx or 0 
@@ -27,6 +28,11 @@ local function spawn(params)
 	
 	physics.addBody( xap.display, "dynamic", {friction = .5, bounce = 0})
 	xap.display.isFixedRotation = true
+	
+	
+	xapGroup:insert(xap.display)
+	xapGroup:insert(xapAmmo)
+	xapGroup:insert(xap.healthbar)
 end
 
 --Movement shtuff
