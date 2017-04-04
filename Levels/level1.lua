@@ -122,7 +122,7 @@ function scene:create( event )
 		{
 			type = "mummy",
 			index = 1,
-			x = 700,
+			x = 500,
 			y = 870,
 			density = 1.0,
 			friction = 0.8,
@@ -148,7 +148,21 @@ function scene:create( event )
 		
 		enemyGroup:insert(enemy.display)
 		
-		
+	function scrollObjects(self, event)
+		if self.x ~= nil then
+			self.x = self.x + G.currentXapXSpeed
+		end
+	end
+	
+	for i=1 , enemyGroup.numChildren, 1 do
+		enemyGroup[i].enterFrame = scrollObjects
+		Runtime:addEventListener("enterFrame", enemyGroup[i])
+	end
+	
+	
+	trapGroup.enterFrame = scrollObjects
+	Runtime:addEventListener("enterFrame", trapGroup)
+	
 	-- all display objects must be inserted into group
 	sceneGroup:insert( background1 )
 	sceneGroup:insert( background2 )
