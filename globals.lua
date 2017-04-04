@@ -17,7 +17,7 @@ G.height = display.actualContentHeight
 G.drawMode = "hybrid"
 --G.drawMode = "normal"
 
-G.xapSpeed = 10
+G.xapSpeed = 5
 G.currentXapXSpeed = 0
 G.currentXapYSpeed = 0
 
