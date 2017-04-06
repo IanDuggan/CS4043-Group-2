@@ -3,6 +3,7 @@ local physics = require ("physics")
 local xap = require("xap")
 local lvl1 = require(G.levels.."level1")
 local g = require("globals")
+physics.start()
 physics.stop()
 --*****Puzzle half works ***********
 local scene = composer.newScene()
