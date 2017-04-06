@@ -48,7 +48,11 @@ function onKeyEvent (event)
 	if event.keyName == "escape" then
 		composer.gotoScene(G.levels.."menu")
 	end
-	
+---*** for the puzzle ***
+	if event.keyName == "e" then
+		composer.showOverlay( "puzzle", options )
+	end
+--*******
 	if event.keyName == "a" and event.phase == "down" then
 		distance = -G.xapSpeed
 		G.currentXapXSpeed = G.xapSpeed
