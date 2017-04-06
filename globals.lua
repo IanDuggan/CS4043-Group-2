@@ -14,8 +14,8 @@ G.sounds = "Assets/Sounds/"
 --random--
 G.width = display.actualContentWidth
 G.height = display.actualContentHeight
-G.drawMode = "hybrid"
---G.drawMode = "normal"
+--G.drawMode = "hybrid"
+G.drawMode = "normal"
 
 G.xapSpeed = 5
 G.currentXapXSpeed = 0

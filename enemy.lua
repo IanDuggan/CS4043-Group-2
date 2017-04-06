@@ -11,9 +11,9 @@ local function spawn(params)
 	E.type = params.type
 
 	if E.type == "mummy" then
-		E.image = G.enemies.."mummy.png"
-		E.imageX = 250
-		E.imageY = 250
+		E.image = G.enemies.."mummyEnemy.png"
+		E.imageX = 321
+		E.imageY = 379
 	end
 
 	--add more if statements depending on the type of creature when we get there :)
