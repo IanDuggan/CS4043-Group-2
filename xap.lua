@@ -49,8 +49,10 @@ function onKeyEvent (event)
 		composer.gotoScene(G.levels.."menu")
 	end
 ---*** for the puzzle ***
-	if event.keyName == "e" then
+		buttonPressed = false
+	if event.keyName == "e" and event.phase == "down" and buttonPressed ~= true then
 		composer.showOverlay( "puzzle", options )
+		buttonPressed = true
 	end
 --*******
 	if event.keyName == "a" and event.phase == "down" then
@@ -113,7 +115,7 @@ local function saberAttack(event)
 		local spawnX = 180
 		
 		
-		sAttack = display.newImageRect(G.misc.."sword.png",92, 100)
+		sAttack = display.newImageRect(G.misc.."swordy.png",110, 170)
 		physics.addBody( sAttack, "static", { isSensor=false } )
 		sAttack.myName = "saber"
 
