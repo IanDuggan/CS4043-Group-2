@@ -6,7 +6,6 @@ local enemy = require("enemy")
 local g = require("globals")
 local col = require("collision")
 
-
 local scene = composer.newScene()
 
 physics.setDrawMode(G.drawMode)
@@ -177,7 +176,21 @@ function scene:create( event )
 
 end
 
+ ---***** COde for the puzzle that is half working *****
+-- Custom function for resuming the game (from pause state)
+function scene:resumeGame()
+    
+end
+ 
+-- Options table for the overlay scene "pause.lua"
+local options = {
+    isModal = true,
+    effect = "fade",
+    time = 400,
+    }
+--************************************
 
+ 
 function scene:show( event )
 	local sceneGroup = self.view
 	local phase = event.phase
