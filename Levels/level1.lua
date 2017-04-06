@@ -16,26 +16,26 @@ function scene:create( event )
 	physics.start()
 	physics.pause()
 
-	local background1 = display.newImageRect( G.backgrounds.."level1.jpg",  display.actualContentWidth, display.actualContentHeight )
+	local background1 = display.newImageRect( G.backgrounds.."background.png",  display.actualContentWidth, display.actualContentHeight )
 	background1.x = background1.x - 2880
 	background1.anchorX = 0
 	background1.anchorY = 0
 	
-	local background2 = display.newImageRect( G.backgrounds.."level1.jpg",  display.actualContentWidth, display.actualContentHeight )
+	local background2 = display.newImageRect( G.backgrounds.."background.png",  display.actualContentWidth, display.actualContentHeight )
 	background2.x = background2.x - 1920
 	background2.anchorX = 0
 	background2.anchorY = 0
 	
-	local background3 = display.newImageRect( G.backgrounds.."level1.jpg",  display.actualContentWidth, display.actualContentHeight )
+	local background3 = display.newImageRect( G.backgrounds.."background.png",  display.actualContentWidth, display.actualContentHeight )
 	background3.anchorX = 0
 	background3.anchorY = 0
 	
-	local background4 = display.newImageRect( G.backgrounds.."level1.jpg",  display.actualContentWidth, display.actualContentHeight )
+	local background4 = display.newImageRect( G.backgrounds.."background.png",  display.actualContentWidth, display.actualContentHeight )
 	background4.x = background4.x + 1920
 	background4.anchorX = 0
 	background4.anchorY = 0
 	
-	local background5 = display.newImageRect( G.backgrounds.."level1.jpg",  display.actualContentWidth, display.actualContentHeight )
+	local background5 = display.newImageRect( G.backgrounds.."background.png",  display.actualContentWidth, display.actualContentHeight )
 	background5.x = background5.x + 2880
 	background5.anchorX = 0
 	background5.anchorY = 0
@@ -121,7 +121,7 @@ function scene:create( event )
 		{
 			type = "mummy",
 			index = 1,
-			x = 500,
+			x = 1800,
 			y = 870,
 			density = 1.0,
 			friction = 0.8,
@@ -136,7 +136,7 @@ function scene:create( event )
 		{
 			type = "mummy",
 			index = 2,
-			x = 1400,
+			x = 2500,
 			y = 870,
 			density = 1.0,
 			friction = 0.8,
