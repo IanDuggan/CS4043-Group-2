@@ -5,6 +5,7 @@ local trap = require("traps")
 local enemy = require("enemy")
 local g = require("globals")
 local col = require("collision")
+local urn = require("urn")
 
 local scene = composer.newScene()
 
@@ -76,6 +77,8 @@ function scene:create( event )
 
 	local trapGroup = display.newGroup()
 	local enemyGroup = display.newGroup()
+	local urnGroup = display.newGroup()
+
 		--[[
 		trap.spawn(
 		{
@@ -113,10 +116,20 @@ function scene:create( event )
 		{
 			x = G.width / 2,
 			y = G.height -250,
-			myName = "xap"
 		}	)
 		
 	
+
+		urn.spawn(
+		{
+			x = G.width / 2 - 750,
+			y = G.height - 250,
+			score = 100,
+		})
+
+		urnGroup:insert(urn.display)
+
+
 		enemy.spawn(
 		{
 			type = "mummy",
@@ -145,7 +158,11 @@ function scene:create( event )
 			myName = "enemy"
 		}	)
 		
+
 		enemyGroup:insert(enemy.display)
+
+
+
 		
 	function scrollObjects(self, event)
 		if self.x ~= nil then
@@ -157,10 +174,17 @@ function scene:create( event )
 		enemyGroup[i].enterFrame = scrollObjects
 		Runtime:addEventListener("enterFrame", enemyGroup[i])
 	end
+
+	for i=1 , urnGroup.numChildren, 1 do
+		urnGroup[i].enterFrame = scrollObjects
+		Runtime:addEventListener("enterFrame", urnGroup[i])
+	end
 	
-	
-	trapGroup.enterFrame = scrollObjects
-	Runtime:addEventListener("enterFrame", trapGroup)
+	for i=1 , trapGroup.numChildren, 1 do
+		trapGroup[i].enterFrame = scrollObjects
+		Runtime:addEventListener("enterFrame", trapGroup[i])
+	end
+
 	
 	-- all display objects must be inserted into group
 	sceneGroup:insert( background1 )
@@ -172,6 +196,7 @@ function scene:create( event )
 	sceneGroup:insert(xapGroup)
 	sceneGroup:insert(trapGroup)
 	sceneGroup:insert(enemyGroup)
+	sceneGroup:insert(urnGroup)
 
 
 end
@@ -227,6 +252,7 @@ function scene:destroy( event )
 	Runtime:removeEventListener("key", xap.onKeyEvent)
 	Runtime:removeEventListener("mouse", xap.saberAttack )
 	Runtime:removeEventListener( "tap", xap.daggerAttack )
+	Runtime:removeEventListener("enterFrame", setXap)
 
 	physics = nil
 
