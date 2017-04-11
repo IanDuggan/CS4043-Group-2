@@ -1,15 +1,33 @@
 require("globals")
 local composer = (require "composer")
+local maths = require("maths")
+local urn = require("urn")
+
 local xap = {}
 
 local distance = 0
-local direction = 1
 
 local function spawn(params)
 
+
+	xap.direction = params.direction or 1
+	xap.state = params.state or 0
+
+	if xap.state == 0 then
+		xap.image = "XapDaggerless.png"
+	else
+		xap.image = "Xap.png"
+	end
+
 	xapGroup = display.newGroup()
-	xap.display = display.newImageRect( G.xap.."Xap.png", 240, 419 )
-	xap.display.myName = "xap"
+	xap.display = display.newImageRect( G.xap..xap.image, 240, 419 )
+
+	if xap.direction == 0 then
+		xap.display.xScale = -1
+	end
+
+	xap.score = xap.score or 0
+	xap.display.myName = params.myName or "xap"
 	xap.motionX = params.motionx or 0 
 	xap.speed = G.xapSpeed
 	xap.isAlive = true
@@ -18,11 +36,13 @@ local function spawn(params)
 	xap.canShoot = params.canShoot or true
 	xap.canSwing = params.canSwing or true
 	xap.ammo = params.ammo or 3
-	
+	xap.myName = params.myName or "xap"
 	
 	xapAmmo = display.newText({text = "Ammo : "..xap.ammo, x = 270, y = 150})
 	xap.healthbar = display.newText({text = "Health : "..xap.health, x = 300, y = 100})
-	
+	xapScore = display.newText({text = "Score : "..xap.score, x = 270, y = 200})
+
+
 	xap.display.x = params.x or 0
 	xap.display.y = params.y or 0
 	
@@ -33,6 +53,7 @@ local function spawn(params)
 	xapGroup:insert(xap.display)
 	xapGroup:insert(xapAmmo)
 	xapGroup:insert(xap.healthbar)
+	xapGroup:insert(xapScore)
 end
 
 --Movement shtuff
@@ -49,20 +70,50 @@ function onKeyEvent (event)
 		composer.gotoScene(G.levels.."menu")
 	end
 ---*** for the puzzle ***
-		buttonPressed = false
+		buttonPressed = false	
 	if event.keyName == "e" and event.phase == "down" and buttonPressed ~= true then
 		composer.showOverlay( "puzzle", options )
 		buttonPressed = true
 	end
 --*******
+
+	if event.keyName == "q" and event.phase == "down" then
+		
+		if urnGroup ~= nil then
+
+			if(maths.calculateDistance(
+			{	x1 = urn.display.x, 
+				y1 = urn.display.y, 
+				x2 = xap.display.x, 
+				y2 = xap.display.y
+			})	< 250) 
+			then	
+				xap.score = xap.score + urn.score
+				local tempX = urn.display.x
+				local tempY = urn.display.y
+
+				display.remove(urn.display)
+				urn.spawn(
+				{
+					x = tempX,
+					y = tempY,		
+					state = "opened"			
+				})
+
+				display.remove(xapScore)
+				xapScore = display.newText({text = "Score : "..xap.score, x = 270, y = 200})
+
+			end
+		end
+	end
 	if event.keyName == "a" and event.phase == "down" then
 		distance = -G.xapSpeed
 		G.currentXapXSpeed = G.xapSpeed
-		if direction == 1 then
+		if xap.direction == 1 then
 				xap.display.xScale = -1
 		end
 		
-		direction = 0
+		xap.direction = 0
 		
 
 	elseif event.keyName == "a" and event.phase == "up" then
@@ -73,10 +124,10 @@ function onKeyEvent (event)
 	if event.keyName == "d" and event.phase == "down" then
 			distance = G.xapSpeed
 			G.currentXapXSpeed = -G.xapSpeed
-			if direction == 0 then
+			if xap.direction == 0 then
 				xap.display.xScale = 1
 			end
-			direction = 1
+			xap.direction = 1
 	elseif event.keyName == "d" and event.phase == "up" then
 			distance = 0
 			G.currentXapXSpeed = 0
@@ -119,7 +170,7 @@ local function saberAttack(event)
 		physics.addBody( sAttack, "static", { isSensor=false } )
 		sAttack.myName = "saber"
 
-		if direction == 0 then
+		if xap.direction == 0 then
 			spawnX = -spawnX
 			sAttack.xScale = -1
 		end
@@ -151,7 +202,7 @@ local function daggerAttack()
 		spawnX = 210
 		finishX = 400
 		
-		if direction == 0 then
+		if xap.direction == 0 then
 			dagger:rotate(180)
 			spawnX = -spawnX
 			finishX = -finishX
