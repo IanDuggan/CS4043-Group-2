@@ -7,9 +7,9 @@ G.backgrounds = "Assets/Images/Backgrounds/"
 G.enemies ="Assets/Images/enemies/" 
 G.misc = "Assets/Images/Misc/"
 G.traps = "Assets/images/Traps/"
-G.xap = "Assets/images/Xap/"
+G.xap = "Assets/Images/Xap/"
 G.sounds = "Assets/Sounds/"
-
+G.urns = "Assets/Images/Urns/"
 
 --random--
 G.width = display.actualContentWidth

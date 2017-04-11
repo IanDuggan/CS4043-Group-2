@@ -318,6 +318,7 @@ onPuzzlePieceTouch = function( event )
 		if( isSolved() ) then
 			
 			gameStatusMsg.isVisible = true
+		
 		end
 
 	end
@@ -343,4 +344,5 @@ movePiecesToTray()
 composer.hideOverlay( "fade", 400 )
  
 scene:addEventListener( "hide", scene )
+
 return scene

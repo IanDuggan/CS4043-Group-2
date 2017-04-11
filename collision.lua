@@ -11,14 +11,17 @@ local function onCollision( event )
     if ( event.phase == "began" ) then
         local obj1 = event.object1
 		local obj2 = event.object2
-		print(xap.health)
 		
 		
 
-		if xap.health > 0 then
-			display.remove(xap.healthbar)
-			xap.healthbar = display.newText({text = "Health : "..xap.health, x = 300, y = 100})
+
+		if((obj1.myName == "xap" and obj2.myName == "urn") or
+			(obj1.myName == "urn" and obj2.myName == "urn"))
+		then
+			print("lol")
 		end
+
+
 		
 		if((obj1.myName == "xap" and obj2.myName == "floor") or
 			(obj1.myName == "floor" and obj2.myName == "xap"))
@@ -55,6 +58,11 @@ local function onCollision( event )
 				xap.health = xap.health - 50
 			else
 				xap.health = xap.health - 70
+			end
+
+			if xap.health > 0 then
+				display.remove(xap.healthbar)
+				xap.healthbar = display.newText({text = "Health : "..xap.health, x = 300, y = 100})
 			end
 			
 			   if(xap.health <= 0) then
