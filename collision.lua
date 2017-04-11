@@ -13,16 +13,6 @@ local function onCollision( event )
 		local obj2 = event.object2
 		
 		
-
-
-		if((obj1.myName == "xap" and obj2.myName == "urn") or
-			(obj1.myName == "urn" and obj2.myName == "urn"))
-		then
-			print("lol")
-		end
-
-
-		
 		if((obj1.myName == "xap" and obj2.myName == "floor") or
 			(obj1.myName == "floor" and obj2.myName == "xap"))
 		then
