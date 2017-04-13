@@ -127,7 +127,8 @@ function scene:create( event )
 			score = 100,
 		})
 
-		urnGroup:insert(urn.display)
+		urnGroup:insert(urn.opened)
+		urnGroup:insert(urn.closed)
 
 
 		enemy.spawn(

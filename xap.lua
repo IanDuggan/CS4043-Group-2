@@ -82,26 +82,21 @@ function onKeyEvent (event)
 		if urnGroup ~= nil then
 
 			if(maths.calculateDistance(
-			{	x1 = urn.display.x, 
-				y1 = urn.display.y, 
+			{	x1 = urn.closed.x, 
+				y1 = urn.closed.y, 
 				x2 = xap.display.x, 
 				y2 = xap.display.y
 			})	< 250) 
 			then	
 				xap.score = xap.score + urn.score
-				local tempX = urn.display.x
-				local tempY = urn.display.y
+				local tempX = urn.closed.x
+				local tempY = urn.closed.y
 
-				display.remove(urn.display)
-				urn.spawn(
-				{
-					x = tempX,
-					y = tempY,		
-					state = "opened"			
-				})
-
+				display.remove(urn.closed)
+				urn.opened.alpha = 100
 				display.remove(xapScore)
 				xapScore = display.newText({text = "Score : "..xap.score, x = 270, y = 200})
+				xapGroup:insert(xapScore)
 
 			end
 		end

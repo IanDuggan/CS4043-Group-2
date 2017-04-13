@@ -12,30 +12,23 @@ local function spawn(params)
 	urn.image = "urnDusty.png"
 	urn.myName = "urn"
 
-	if urn.state == "closed" then
-		urn.image = "urnDusty.png"
-	elseif urn.state == "opened" then
-		urn.image = "urnDustyOpen.png"
-	end
+	urn.closed = display.newImageRect(G.urns.."urnDusty.png", 180, 295)
 
-	urn.display = display.newImageRect(G.urns..urn.image, 180, 295)
-	urn.display.x = params.x or 0
-	urn.display.y = params.y or 0
+	urn.closed.x = params.x or 0
+	urn.closed.y = params.y or 0
 
-	--physics.addBody( urn.display, "static", {friction = .5, isSensor = true, bounce = 0})
-
-	urnGroup:insert(urn.display)
+	urn.opened = display.newImageRect(G.urns.."urnDustyOpen.png", 180, 295)
+	
+	urn.opened.x = params.x or 0
+	urn.opened.y = params.y or 0
+	urn.opened.alpha = 0
+	
+	urnGroup:insert(urn.opened)
+	urnGroup:insert(urn.closed)
 
 	urn.score = params.score or 0
-	
-end
-
-local function open(params)
-	
-
 end
 
 urn.spawn = spawn
-urn.open = open
 
 return urn
