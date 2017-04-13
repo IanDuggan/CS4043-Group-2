@@ -47,7 +47,7 @@ local function onCollision( event )
 			if obj1.myName == "arrow" or obj2.myName == "arrow" then
 				xap.health = xap.health - 50
 			else
-				xap.health = xap.health - 70
+				xap.health = xap.health - 100
 			end
 
 			if xap.health > 0 then

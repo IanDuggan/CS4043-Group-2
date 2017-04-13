@@ -2,13 +2,15 @@ local composer = require "composer"
 local g = require("globals")
 local M = require("maths")
 local xap = require("xap")
-
+local maths = require("maths")
 local E = {}
 
-
+local ai
+local id = 0
+local group = {}
 
 local function spawn(params) 
-	E.type = params.type
+	E.type = params.type or "mummy"
 
 	if E.type == "mummy" then
 		E.image = G.enemies.."mummyEnemy.png"
@@ -31,18 +33,47 @@ local function spawn(params)
 	E.bodyType = params.bodyType or "dynamic"
 
 	physics.addBody(E.display, E.bodyType, {density = E.density, friction = E.friction, bounce = E.bounce, isSensor = E.isSensor})
---[[
-	local function ai()
-		if 	(maths.calculateDistance( {x1 = xap.display.x, x2 = E.x, y1 = xap.display.y, y2 = E.y }) <= 10) then 
 
+
+	group[id] = E.display
+	id = id + 1
+
+	local tempX = xap.display.x
+	local tempY = xap.display.y
+
+	local function ai()
+		
+		if(maths.calculateDistance(
+			{	x1 = E.display.x, 
+				y1 = E.display.y, 
+				x2 = xap.display.x, 
+				y2 = xap.display.y
+			})	< 750) 
+		then	
+			if tempX == nil and tempY == nil then
+				tempX = xap.display.x
+				tempY = xap.display.y
+			end
+
+			transition.moveTo(E.display, (
+			{
+				time = 7500, x = tempX, y = tempY
+			}	)	)
+		else
+			transition.cancel()
 		end
 	end
---]]
+	E.ai = ai
+	Runtime:addEventListener("enterFrame", E.ai)
+end
+
+
 
 	
-end
-	
-	E.spawn = spawn
+
+E.spawn = spawn
+
+
 return E
 
 

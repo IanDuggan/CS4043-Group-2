@@ -6,6 +6,7 @@ local urn = require("urn")
 local xap = {}
 
 local distance = 0
+local buttonPressed = false	
 
 local function spawn(params)
 
@@ -59,6 +60,7 @@ end
 --Movement shtuff
 function onKeyEvent (event)
 
+
 	--If user presses back on android/windowsPhone it won't exit the app
 	if ( event.keyName == "back" ) then
 		if ( G.android ) or ( G.winPhone ) then
@@ -70,7 +72,6 @@ function onKeyEvent (event)
 		composer.gotoScene(G.levels.."menu")
 	end
 ---*** for the puzzle ***
-		buttonPressed = false	
 	if event.keyName == "e" and event.phase == "down" and buttonPressed ~= true then
 		composer.showOverlay( "puzzle", options )
 		buttonPressed = true
