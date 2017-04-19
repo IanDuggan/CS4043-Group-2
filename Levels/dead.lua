@@ -2,7 +2,7 @@ local composer = require( "composer" )
 local scene = composer.newScene()
 local widget = require "widget"
 
-
+audio.stop(2)
 
 local function mainMenuTouch()
 	composer.gotoScene( G.levels.."menu")
