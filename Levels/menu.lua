@@ -2,7 +2,8 @@ local composer = require( "composer" )
 local scene = composer.newScene()
 local widget = require "widget"
 
-
+mainMenu = audio.loadSound("Assets/Sounds/Music/Extra1.mp3", {channel = 1});
+audio.play( mainMenu )
 
 
 --After pressing play, level 1 initiates
