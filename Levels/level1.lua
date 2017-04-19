@@ -7,6 +7,11 @@ local g = require("globals")
 local col = require("collision")
 local urn = require("urn")
 
+audio.stop(1)
+
+mainMenu = audio.loadSound("Assets/Sounds/Music/Egyptian.mp3", {channel = 2});
+audio.play( mainMenu )
+
 local scene = composer.newScene()
 
 physics.setDrawMode(G.drawMode)
