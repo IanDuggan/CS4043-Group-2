@@ -3,12 +3,19 @@ local physics = require ("physics")
 local xap = require("xap")
 local lvl1 = require(G.levels.."level1")
 local g = require("globals")
-physics.start()
-physics.stop()
+local door = require("door")
+--physics.start()
+--physics.stop()
 --*****Puzzle half works ***********
 local scene = composer.newScene()
  
-
+-- Options table for the overlay scene "pause.lua"
+			local options = {
+				isModal = true,
+				effect = "fade",
+				time = 400,
+				}
+			
 --io.output():setvbuf("no") 
 --display.setStatusBar(display.HiddenStatusBar)  
 local w       = display.contentWidth		
@@ -19,7 +26,7 @@ local centerY = display.contentHeight/2
 	
 local puzzleName = "puzzle"
 
-
+local puzzle = {}
 local puzzlePieces = {}						
 
 
@@ -316,33 +323,21 @@ onPuzzlePieceTouch = function( event )
 
 		
 		if( isSolved() ) then
-			
-			gameStatusMsg.isVisible = true
-		
+		gameStatusMsg.isVisible = true
+		G.puzzleSolved = true
 		end
-
 	end
 
 	return true
 end
-
-function scene:hide( event )
-    local sceneGroup = self.view
-    local phase = event.phase
-    --local parent = event.lvl1 --reference to the parent scene object
- --***Not working***
-    if ( isSolved() ) then
-        -- Call the "resumeGame()" function in the parent scene
-        lvl1:resumeGame()
-    end
---******
-end
 drawBoard()
 placePieces()
 movePiecesToTray()
-	
-composer.hideOverlay( "fade", 400 )
- 
-scene:addEventListener( "hide", scene )
 
+--[[puzzle.isSolved= isSolved
+puzzle.drawBoard = drawBoard
+puzzle.placePieces = placePieces
+puzzle.movePiecesToTray = movePiecesToTray
+puzzle.pointInRect = pointInRect]]
+	scene:addEventListener( "hide", scene )
 return scene

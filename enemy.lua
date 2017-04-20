@@ -38,8 +38,7 @@ local function spawn(params)
 	group[id] = E.display
 	id = id + 1
 
-	local tempX = xap.display.x
-	local tempY = xap.display.y
+
 
 	local function ai()
 		
@@ -50,18 +49,8 @@ local function spawn(params)
 				y2 = xap.display.y
 			})	< 750) 
 		then	
-			if tempX == nil and tempY == nil then
-				tempX = xap.display.x
-				tempY = xap.display.y
+			
 			end
-
-			transition.moveTo(E.display, (
-			{
-				time = 7500, x = tempX, y = tempY
-			}	)	)
-		else
-			transition.cancel()
-		end
 	end
 	E.ai = ai
 	Runtime:addEventListener("enterFrame", E.ai)

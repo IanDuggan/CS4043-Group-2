@@ -2,7 +2,8 @@ require("globals")
 local composer = (require "composer")
 local maths = require("maths")
 local urn = require("urn")
-
+local door = require("door")
+--local Puzzle = require("puzzle")
 local xap = {}
 
 local distance = 0
@@ -49,12 +50,13 @@ local function spawn(params)
 	
 	physics.addBody( xap.display, "dynamic", {friction = .5, bounce = 0})
 	xap.display.isFixedRotation = true
-	
+
 	
 	xapGroup:insert(xap.display)
 	xapGroup:insert(xapAmmo)
 	xapGroup:insert(xap.healthbar)
 	xapGroup:insert(xapScore)
+	xapGroup:toFront()
 end
 
 --Movement shtuff
@@ -72,11 +74,46 @@ function onKeyEvent (event)
 		composer.gotoScene(G.levels.."menu")
 	end
 ---*** for the puzzle ***
-	if event.keyName == "e" and event.phase == "down" and buttonPressed ~= true then
-		composer.showOverlay( "puzzle", options )
-		buttonPressed = true
+	if event.keyName == "e" and event.phase == "down"  then
+		--composer.showOverlay( "puzzle", options )
+		if doorGroup ~= nil then
+			print (door.display.x)
+			print (" ")
+			print (xap.display.x)
+			
+			if(maths.calculateDistance(
+			{	x1 = door.display.x, 
+				y1 = door.display.y, 
+				x2 = xap.display.x, 
+				y2 = xap.display.y
+			})	< 500) 
+			then
+				composer.showOverlay( "puzzle", options )
+				local function isPuzzleTrue()
+					print (G.puzzleSolved)
+					if (G.puzzleSolved == true) then
+						print ("entered third if statement")
+						xap.score = xap.score + door.score
+						display.remove(xapScore)
+						xapScore = display.newText({text = "Score : "..xap.score, x = 270, y = 200})
+						xapGroup:insert(xapScore)
+						G.doorEntered = true
+					end
+					if (G.doorEntered == true) then
+						print ("door entered")
+						display.remove(xapAmmo)
+						composer.hideOverlay("fade", 400)
+						composer.gotoScene(G.levels.."win")
+					end
+					
+				end
+				timer.performWithDelay(20000, isPuzzleTrue)
+				print(G.doorEntered)
+				
+			end
+		end
+			
 	end
---*******
 
 	if event.keyName == "q" and event.phase == "down" then
 		

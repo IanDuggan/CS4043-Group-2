@@ -17,6 +17,9 @@ G.height = display.actualContentHeight
 --G.drawMode = "hybrid"
 G.drawMode = "normal"
 
+G.puzzleSolved = false
+G.doorEntered = false
+
 G.xapSpeed = 5
 G.currentXapXSpeed = 0
 G.currentXapYSpeed = 0
